@@ -91,12 +91,38 @@ aside {
 
   h3,
   .button .text {
-    opacity: 0.3;
+    opacity: 0;
     transition: 0.3s ease-out;
   }
 
   .menu {
     margin: 0 -1rem;
+
+    .button{
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      padding: .5rem 1rem;
+      transition: .2s ease-out;
+
+      .material-icons{
+        font-size: 2rem;
+        color: var(--light);
+        transition: .2s ease-out;
+      }
+
+      .text{
+        color: var(--light);
+      }
+
+      &:hover{
+        background-color: var(--dark-alt);
+
+        .material-icons, .text{
+          color: var(--primary);
+        }
+      }
+    }
   }
 
   &.is_expanded {
@@ -110,9 +136,14 @@ aside {
       }
     }
 
-    h3,
-    .button .text {
+    h3, .button .text {
       opacity: 1;
+    }
+
+    .button{
+      .material-icons{
+        margin-right: 1rem;
+      }
     }
   }
 
