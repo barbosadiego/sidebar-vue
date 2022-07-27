@@ -2,32 +2,41 @@
   <aside :class="{ is_expanded: is_expanded }">
     <div class="logo">
       <img src="@/assets/logo.png" alt="Vue" />
+    </div>
 
-      <div class="menu-toggle-wrap">
-        <button class="menu-toggle" @click="is_expanded = !is_expanded">
-          <span class="material-icons"> keyboard_double_arrow_right </span>
-        </button>
-      </div>
+    <div class="menu-toggle-wrap">
+      <button class="menu-toggle" @click="toggleMenu">
+        <span class="material-icons"> keyboard_double_arrow_right </span>
+      </button>
+    </div>
 
-      <h3>Menu</h3>
-      <div class="menu">
-        <router-link class="button" to="/">
-          <span class="material-icons">home</span>
-          <span class="text">Home</span>
-        </router-link>
-        <router-link class="button" to="/about">
-          <span class="material-icons">visibility</span>
-          <span class="text">About</span>
-        </router-link>
-        <router-link class="button" to="/">
-          <span class="material-icons">group</span>
-          <span class="text">Team</span>
-        </router-link>
-        <router-link class="button" to="/">
-          <span class="material-icons">email</span>
-          <span class="text">Contact</span>
-        </router-link>
-      </div>
+    <h3>Menu</h3>
+    <div class="menu">
+      <router-link class="button" to="/">
+        <span class="material-icons">home</span>
+        <span class="text">Home</span>
+      </router-link>
+      <router-link class="button" to="/about">
+        <span class="material-icons">visibility</span>
+        <span class="text">About</span>
+      </router-link>
+      <router-link class="button" to="/team">
+        <span class="material-icons">group</span>
+        <span class="text">Team</span>
+      </router-link>
+      <router-link class="button" to="/contact">
+        <span class="material-icons">email</span>
+        <span class="text">Contact</span>
+      </router-link>
+    </div>
+
+    <div class="flex"></div>
+
+    <div class="menu">
+      <router-link class="button" to="/settings">
+        <span class="material-icons">settings</span>
+        <span class="text">Settings</span>
+      </router-link>
     </div>
   </aside>
 </template>
@@ -35,12 +44,18 @@
 <script>
 export default {
   name: 'TheSidebar',
+
   data() {
     return {
-      is_expanded: false,
+      is_expanded: JSON.parse(localStorage.getItem('is_expanded')),
     };
   },
-  methods: {},
+  methods: {
+    toggleMenu() {
+      this.is_expanded = !this.is_expanded;
+      localStorage.setItem('is_expanded', this.is_expanded);
+    },
+  },
 };
 </script>
 
@@ -55,6 +70,10 @@ aside {
   background-color: var(--dark);
   color: var(--light);
   transition: 0.2s ease-out;
+
+  .flex {
+    flex: 1 1 0;
+  }
 
   .logo {
     margin-bottom: 1rem;
@@ -95,32 +114,45 @@ aside {
     transition: 0.3s ease-out;
   }
 
+  h3 {
+    color: var(--grey);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+
   .menu {
     margin: 0 -1rem;
 
-    .button{
+    .button {
       display: flex;
       align-items: center;
       text-decoration: none;
-      padding: .5rem 1rem;
-      transition: .2s ease-out;
+      padding: 0.5rem 1rem;
+      transition: 0.2s ease-out;
 
-      .material-icons{
+      .material-icons {
         font-size: 2rem;
         color: var(--light);
-        transition: .2s ease-out;
+        transition: 0.2s ease-out;
       }
 
-      .text{
+      .text {
         color: var(--light);
       }
 
-      &:hover{
+      &:hover,
+      &.router-link-exact-active {
         background-color: var(--dark-alt);
 
-        .material-icons, .text{
+        .material-icons,
+        .text {
           color: var(--primary);
         }
+      }
+
+      &.router-link-exact-active {
+        border-right: 5px solid var(--primary);
       }
     }
   }
@@ -136,12 +168,13 @@ aside {
       }
     }
 
-    h3, .button .text {
+    h3,
+    .button .text {
       opacity: 1;
     }
 
-    .button{
-      .material-icons{
+    .button {
+      .material-icons {
         margin-right: 1rem;
       }
     }

@@ -1,12 +1,12 @@
 <template>
   <main class="about-page">
-    <h1>About</h1>
-    <p>this is the about page</p>
+    <h1>Contact</h1>
+    <p>this is the contact page</p>
   </main>
 </template>
 
 <script>
 export default {
-  name: 'AboutPage',
+  name: 'ContactPage',
 }
 </script>
